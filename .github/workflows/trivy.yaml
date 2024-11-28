@@ -28,18 +28,21 @@ jobs:
           sudo chown fetcher01.fetcher01 /home/fetcher01/cve_latest.txt
           rsync -az -e "ssh -p 22 -i ~/.ssh/id_rsa" /home/fetcher01/cve_latest.txt devops@${{ env.MOVER }}:/home/devops/cve_latest.txt
           
-      #- name: Container Image Vulners Detected Sending Slack
-      #  uses: 8398a7/action-slack@v3
-      #  with:
-      #    status: ${{ job.status }}
-      #    author_name: '${{ env.image-ref }} Container Image Vulners Detected! or Git Build Failed!'
-      #    fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
-      #  env:
-      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #  if: failure()
+      - name: GitHub Build Fail Sending Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: '${{ env.image-ref }} Git Build Failed!'
+          fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: failure()
 
-      #- name: Container Image Vulners No Detected Sending Slack
-      #  uses: 8398a7/action-slack@v3
-      #  with:
-      #    status: ${{ job.status }}
-      #    author_name: '${{ env.image-ref }} Container Image No Vulners Detected and Git Build Successed.'
+      - name: GitHub Build Success Sending Slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          author_name: '${{ env.image-ref }} Git Build Successed.'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: success()
