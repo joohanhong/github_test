@@ -1,0 +1,33 @@
+# Date: 2024-11-28
+# Author: Joohanhong <joohan.hong@kt.com>
+
+name: Git-Action Trivy CVE Version MGMT
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  trivy-cve_database_update:
+    runs-on: self-hosted
+    steps:
+      - name: Trivy Vulnerability Reference File Update
+        run: ls -al
+          
+      #- name: Container Image Vulners Detected Sending Slack
+      #  uses: 8398a7/action-slack@v3
+      #  with:
+      #    status: ${{ job.status }}
+      #    author_name: '${{ env.image-ref }} Container Image Vulners Detected! or Git Build Failed!'
+      #    fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
+      #  env:
+      #    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      #  if: failure()
+
+      #- name: Container Image Vulners No Detected Sending Slack
+      #  uses: 8398a7/action-slack@v3
+      #  with:
+      #    status: ${{ job.status }}
+      #    author_name: '${{ env.image-ref }} Container Image No Vulners Detected and Git Build Successed.'
