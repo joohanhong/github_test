@@ -11,7 +11,7 @@ on:
 
 jobs:
   trivy-cve_database_update:
-    runs-on: self-hosted
+    runs-on: [self-hosted,Linux,X64,fetcher01]
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -21,7 +21,7 @@ jobs:
           ls -al
           pwd
           sudo rm -rf /home/fetcher01/cve_latest.txt
-          sudo cp -rf /home/fetcher01/cve_latest.txt
+          sudo cp -rf cve_latest.txt /home/fetcher01/cve_latest.txt
           
       #- name: Container Image Vulners Detected Sending Slack
       #  uses: 8398a7/action-slack@v3
