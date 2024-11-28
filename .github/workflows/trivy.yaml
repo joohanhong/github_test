@@ -26,13 +26,13 @@ jobs:
           sudo rm -rf /home/fetcher01/cve_latest.txt
           sudo cp -rf cve_latest.txt /home/fetcher01/cve_latest.txt
           sudo chown fetcher01.fetcher01 /home/fetcher01/cve_latest.txt
-          rsync -az -e "ssh -p 22" /home/fetcher01/cve_latest.txt devops@${{ env.MOVER }}:/home/devops/cve_latest.txt
+          rsync -az -e "ssh -p 22 /home/fetcher01/cve_latest.txt" devops@${{ env.MOVER }}:/home/devops/cve_latest.txt
           
       - name: GitHub Build Fail Sending Slack
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: '${{ env.image-ref }} Git Build Failed!'
+          author_name: 'Trivy CVE Lists MGMT Git Build Failed!'
           fields: repo, messages, commit, author, action, eventName, ref, workflow, job, took
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -42,7 +42,7 @@ jobs:
         uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          author_name: '${{ env.image-ref }} Git Build Successed.'
+          author_name: 'Trivy CVE Lists MGMT Git Build Successed.'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: success()
