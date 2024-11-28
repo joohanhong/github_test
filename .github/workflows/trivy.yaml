@@ -24,7 +24,7 @@ jobs:
           sudo rm -rf /home/fetcher01/cve_latest.txt
           sudo cp -rf cve_latest.txt /home/fetcher01/cve_latest.txt
           sudo chown fetcher01.fetcher01 /home/fetcher01/cve_latest.txt
-          sudo scp -P 22 /home/fetcher01/cve_latest.txt" devops@${{ env.MOVER }}:/home/devops/cve_latest.txt
+          sudo scp -P 22 /home/fetcher01/cve_latest.txt devops@${{ env.MOVER }}:/home/devops/cve_latest.txt
           
       - name: GitHub Build Fail Sending Slack
         uses: 8398a7/action-slack@v3
