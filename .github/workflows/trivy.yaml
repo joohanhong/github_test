@@ -14,7 +14,9 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Trivy Vulnerability Reference File Update
-        run: ls -al
+        run: |
+          ls -al
+          pwd
           
       #- name: Container Image Vulners Detected Sending Slack
       #  uses: 8398a7/action-slack@v3
